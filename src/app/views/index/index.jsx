@@ -87,6 +87,10 @@ export const IndexView = React.createClass({
     }
     return reader.readAsDataURL(this.state.file)
   },
+  getImageSize() {
+    return atob(this.state.dataURL.substr(this.state.dataURL.indexOf(',') + 1))
+      .length / 1000
+  },
   render() {
     return (
       <article className="index-view">
@@ -98,7 +102,7 @@ export const IndexView = React.createClass({
           </select>
         </form>
         <div>
-          size ~ {atob(this.state.dataURL.substr(22)).length / 1000} kb
+          size ~ {this.getImageSize()} kb
         </div>
         {isIMG(this.state.file) &&
           <img src={this.state.dataURL} />}
